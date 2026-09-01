@@ -26,19 +26,19 @@ static_assert(MAX_U64 == std::numeric_limits<u64>::max());
 // runtime check
 void test_types_and_constants()
 {
-    ASSERT_NOEFECT(sizeof(u8) == 1 && std::is_unsigned_v<u8>);
-    ASSERT_NOEFECT(sizeof(s8) == 1 && std::is_signed_v<s8>);
-    ASSERT_NOEFECT(sizeof(u16) == 2 && std::is_unsigned_v<u16>);
-    ASSERT_NOEFECT(sizeof(s16) == 2 && std::is_signed_v<s16>);
-    ASSERT_NOEFECT(sizeof(u32) == 4 && std::is_unsigned_v<u32>);
-    ASSERT_NOEFECT(sizeof(s32) == 4 && std::is_signed_v<s32>);
-    ASSERT_NOEFECT(sizeof(u64) == 8 && std::is_unsigned_v<u64>);
-    ASSERT_NOEFECT(sizeof(s64) == 8 && std::is_signed_v<s64>);
+    ASSERT_NOEFFECT(sizeof(u8) == 1 && std::is_unsigned_v<u8>);
+    ASSERT_NOEFFECT(sizeof(s8) == 1 && std::is_signed_v<s8>);
+    ASSERT_NOEFFECT(sizeof(u16) == 2 && std::is_unsigned_v<u16>);
+    ASSERT_NOEFFECT(sizeof(s16) == 2 && std::is_signed_v<s16>);
+    ASSERT_NOEFFECT(sizeof(u32) == 4 && std::is_unsigned_v<u32>);
+    ASSERT_NOEFFECT(sizeof(s32) == 4 && std::is_signed_v<s32>);
+    ASSERT_NOEFFECT(sizeof(u64) == 8 && std::is_unsigned_v<u64>);
+    ASSERT_NOEFFECT(sizeof(s64) == 8 && std::is_signed_v<s64>);
 
-    ASSERT_NOEFECT(INVALID8 == MAX_U8);
-    ASSERT_NOEFECT(INVALID16 == MAX_U16);
-    ASSERT_NOEFECT(INVALID32 == MAX_U32);
-    ASSERT_NOEFECT(INVALID64 == MAX_U64);
+    ASSERT_NOEFFECT(INVALID8 == MAX_U8);
+    ASSERT_NOEFFECT(INVALID16 == MAX_U16);
+    ASSERT_NOEFFECT(INVALID32 == MAX_U32);
+    ASSERT_NOEFFECT(INVALID64 == MAX_U64);
     ASSERT_RETNONE(MAX_U8 == std::numeric_limits<u8>::max());
     ASSERT_RETNONE(MAX_U16 == std::numeric_limits<u16>::max());
     ASSERT_RETNONE2(MAX_U32 == std::numeric_limits<u32>::max(), "This is a test for ASSERT_RETNONE2 macro.");
@@ -106,7 +106,7 @@ int main()
 #endif
 
 #ifdef NDEBUG
-    std::cout << "This program is compiled in release mode. Assert will do nothing on failure." << std::endl
+    std::cout << "This program is compiled in release mode. Assert will do nothing on failure." << std::endl;
 #endif
 
     test_types_and_constants();

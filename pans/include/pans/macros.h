@@ -2,14 +2,13 @@
 #define PANS_INCLUDE_PANS_MACROS_H
 
 #include <cassert>
-#include <iostream>
 #include <cstdint>
 
 // TODO: Stacktrace
 #define PANS_ASSERT(x)                                                                                \
     if (!(x)) [[unlikely]]                                                                            \
     {                                                                                                 \
-        std::cerr << __FILE__ << ":" << __LINE__ << "ASSERT FAILED" << #x << "\nStacktracw: TODO \n"; \
+        std::cerr << __FILE__ << ":" << __LINE__ << " ASSERT FAILED: " << #x << "\nStacktracw: TODO \n"; \
         assert(x);                                                                                    \
     }
 
