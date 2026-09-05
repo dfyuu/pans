@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <cstdint>
+#include <iostream> // IWYU pragma: export 
 
 // TODO: Stacktrace
 #define PANS_ASSERT(x)                                                                                \
