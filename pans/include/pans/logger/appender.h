@@ -16,6 +16,7 @@ class AppenderAccess;
 class PANS_API Appender final {
 public:
     class Impl;
+
     ~Appender() = default;
 
     Appender(const Appender&) = delete;
