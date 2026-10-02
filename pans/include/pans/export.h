@@ -9,7 +9,7 @@
 #endif
 
 #elif defined(__GNUC__) && defined(PANS_SHARED_LIBRARY)
-#define PANS_API __attribute__(visibility("default")))
+#define PANS_API __attribute__((visibility("default")))
 #else
 #define PANS_API
 #endif

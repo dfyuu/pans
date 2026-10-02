@@ -7,7 +7,7 @@
 
 namespace pans::detail {
 
-constexpr std::string_view DEFAULT_DATE_FORMAT = "%Y-%m-%d- %H:%M:%S";
+constexpr std::string_view DEFAULT_DATE_FORMAT = "%Y-%m-%d %H:%M:%S";
 
 Formatter::Formatter(std::string_view pattern)
     : m_pattern(pattern)
@@ -115,7 +115,8 @@ public:
     void format(const LogRecordView& record, FormattedRecordBuffer& output) const override
     {
         static thread_local time_t last_second = 0;
-        static thread_local char cached_date_time[] = {'\0'};
+        static thread_local std::array<char, 64> cached_date_time{};
+        static std::size_t cached_date_time_size = 0;
 
         const auto duration = record.m_timestamp.time_since_epoch();
         const time_t current_second = static_cast<time_t>(std::chrono::duration_cast<std::chrono::seconds>(duration).count());
@@ -130,12 +131,12 @@ public:
             const std::tm* result = localtime_r(&current_second, &buffer);
             ASSERT_RETNONE2(result != nullptr, "failed to convert log time to local time");
 #endif
-            const std::size_t size = std::strftime(cached_date_time, sizeof(cached_date_time), m_format.c_str(), &buffer);
-            ASSERT_RETNONE2(size != 0, "failed to format log time");
+            cached_date_time_size = std::strftime(cached_date_time.data(), cached_date_time.size(), m_format.c_str(), &buffer);
+            ASSERT_RETNONE2(cached_date_time_size != 0, "failed to format log time");
             last_second = current_second;
         }
 
-        output.append(cached_date_time);
+        output.append(cached_date_time.data(), cached_date_time_size);
     }
 private:
     std::string m_format;
